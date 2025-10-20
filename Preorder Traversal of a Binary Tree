@@ -1,0 +1,95 @@
+🌳 Preorder Traversal of a Binary Tree (Topper-Style Explanation)
+1️⃣ Definition
+
+Preorder Traversal is one of the Depth-First Traversal (DFS) methods of a Binary Tree.
+
+In Preorder Traversal, the root node is visited first, followed by the left subtree, and then the right subtree.
+
+👉 Order of Traversal:
+
+Root → Left → Right
+
+2️⃣ Steps (Algorithm)
+
+Visit the root node.
+
+Traverse the left subtree in preorder.
+
+Traverse the right subtree in preorder.
+
+3️⃣ Recursive Algorithm
+
+📘 Pseudocode:
+
+PREORDER(root):
+    if root == NULL:
+        return
+    print(root->data)
+    PREORDER(root->left)
+    PREORDER(root->right)
+
+4️⃣ C++ Implementation
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+
+    Node(int val) {
+        data = val;
+        left = right = NULL;
+    }
+};
+
+// Function for Preorder Traversal
+void preorder(Node* root) {
+    if (root == NULL)
+        return;
+
+    cout << root->data << " ";     // Step 1: Visit root
+    preorder(root->left);          // Step 2: Traverse left subtree
+    preorder(root->right);         // Step 3: Traverse right subtree
+}
+
+int main() {
+    // Constructing the tree
+    Node* root = new Node(1);
+    root->left = new Node(2);
+    root->right = new Node(3);
+    root->left->left = new Node(4);
+    root->left->right = new Node(5);
+
+    cout << "Preorder Traversal: ";
+    preorder(root);
+
+    return 0;
+}
+
+5️⃣ Example
+
+For the binary tree:
+
+        1
+       / \
+      2   3
+     / \
+    4   5
+
+
+🧮 Traversal Steps:
+
+Visit 1 (root)
+
+Move to left subtree → Visit 2
+
+Visit left of 2 → 4
+
+Visit right of 2 → 5
+
+Move to right subtree of 1 → 3
+
+✅ Output:
+
+1 2 4 5 3

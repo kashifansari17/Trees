@@ -1,0 +1,61 @@
+🌳 Binary Tree Representation (Topper Style Explanation)
+
+A Binary Tree is a hierarchical data structure in which each node has at most two children — called the left child and the right child.
+
+1️⃣ Definition
+
+A Binary Tree is a finite set of nodes that is either:
+
+Empty (NULL), or
+
+Consists of a root node and two disjoint binary trees called the left subtree and the right subtree.
+
+2️⃣ Structure of a Binary Tree Node
+
+Each node typically contains:
+
+Data (value stored in the node)
+
+Pointer to left child
+
+Pointer to right child
+
+📘 In C++ representation:
+
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+
+    Node(int val) {
+        data = val;
+        left = right = NULL;
+    }
+};
+
+3️⃣ Types of Representation
+(a) Linked Representation
+
+Each node contains data and two pointers (left and right).
+
+The root pointer points to the topmost node of the tree.
+
+📘 Example:
+
+Node* root = new Node(10);
+root->left = new Node(20);
+root->right = new Node(30);
+
+
+📊 Structure:
+
+       10
+      /  \
+    20    30
+
+
+✅ Advantages:
+
+Dynamic in nature.
+
+Easy to insert and delete nodes.

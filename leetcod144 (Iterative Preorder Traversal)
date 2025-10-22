@@ -1,3 +1,25 @@
+## Logic / Approach
+
+- Use a **stack** to simulate recursion.  
+- Push the **root** node into the stack.  
+- While stack is not empty:
+  - Pop the top node → visit it (add value to result).  
+  - Push **right child first**, then **left child** (so left is processed first).  
+- This mimics recursive preorder traversal iteratively.
+
+---
+
+## Algorithm (Step-wise)
+
+1. Initialize an empty vector `preorder` and stack `st`.  
+2. If `root` is null, return `preorder`.  
+3. Push `root` into `st`.  
+4. While `st` is not empty:  
+   - Pop top node `node`.  
+   - Append `node->val` to `preorder`.  
+   - If `node->right` exists, push to stack.  
+   - If `node->left` exists, push to stack.  
+5. Return `preorder`.
 /*
 🧩 LeetCode — Problem Notes & Complete Code
 

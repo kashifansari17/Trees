@@ -1,0 +1,75 @@
+/*
+🧩 LeetCode — Problem Notes & Complete Code
+
+Question Number: 144 (Iterative Preorder Traversal)
+Title (brief): Binary Tree Preorder Traversal (Iterative)
+
+Problem Description (brief):
+Return the preorder traversal of a binary tree without using recursion.
+Preorder traversal visits nodes in this order: Root → Left → Right.
+
+Example(s) (with expected output):
+
+// Example 1:
+// Input: root = [1,2,3,4,5]
+// Output: [1,2,4,5,3]
+
+// Example 2:
+// Input: root = []
+// Output: []
+
+// Example 3:
+// Input: root = [1]
+// Output: [1]
+
+Logic / Approach:
+- Use an iterative approach with a stack.
+- Push the root node into the stack.
+- While the stack is not empty:
+    - Pop the top node and visit it (add to result).
+    - Push the right child first, then left child (so left is processed first).
+- This simulates recursive preorder traversal using a stack.
+
+Time Complexity:
+- O(n) → each node is visited exactly once.
+
+Space Complexity:
+- O(n) → worst-case stack size in a skewed tree.
+
+Edge Cases:
+1. Empty tree (root = nullptr) → return [].
+2. Single node tree → return [root->val].
+3. Skewed tree → stack can grow up to n nodes.
+
+Optional Interview Follow-ups / Tips:
+- Iterative method avoids recursion stack overflow.
+- Similar approach can be adapted for inorder or postorder traversal.
+*/
+
+#include <vector>
+#include <stack>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> preorder;
+        if (root==NULL) return preorder;  // Edge case: empty tree
+        
+        stack<TreeNode*> st;
+        st.push(root);  // Start with root
+        
+        while (!st.empty()) {
+            TreeNode* node = st.top();
+            st.pop();
+            
+            preorder.push_back(node->val);  // Visit root
+            
+            // Push right first so left is processed first
+            if (node->right) st.push(node->right);
+            if (node->left) st.push(node->left);
+        }
+        
+        return preorder;
+    }
+};

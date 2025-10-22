@@ -1,0 +1,118 @@
+/**
+ * ========================================================
+ * 🌳 Problem: Iterative Postorder Traversal of Binary Tree
+ * ==========================================================
+ * Perform postorder traversal (Left → Right → Root) of a binary tree
+ * using an *iterative approach* with two stacks.
+ *
+ * ----------------------------------------------------------
+ * 💡 Intuition:
+ * ----------------------------------------------------------
+ * In postorder traversal, the root is visited **after** its left and right subtrees.
+ * Recursive traversal is simple, but iterative postorder is trickier because we must
+ * ensure a node is processed **only after** its children.
+ *
+ * The trick:
+ *   - Use two stacks:
+ *     - `st1` → for traversal (like modified preorder)
+ *     - `st2` → to reverse the order (so we get postorder)
+ *
+ * ----------------------------------------------------------
+ * 🧮 Algorithm (Step-by-Step):
+ * ----------------------------------------------------------
+ * 1️⃣ If root is NULL → return empty vector.
+ * 2️⃣ Push root into stack `st1`.
+ * 3️⃣ While `st1` is not empty:
+ *      a) Pop the top of `st1` and push it into `st2`.
+ *      b) Push its left child (if exists) into `st1`.
+ *      c) Push its right child (if exists) into `st1`.
+ * 4️⃣ After the loop, `st2` holds nodes in **Root → Right → Left** order.
+ * 5️⃣ Pop all nodes from `st2` and store their values in `postorder` vector.
+ *     (This reverses it into **Left → Right → Root**, i.e., Postorder)
+ * 6️⃣ Return the `postorder` vector.
+ *
+ * ----------------------------------------------------------
+ * 🧠 Example Dry Run:
+ * ----------------------------------------------------------
+ * Input Tree:
+ *         1
+ *        / \
+ *       2   3
+ *      / \
+ *     4   5
+ *
+ * Step 1️⃣: Push root → st1 = [1]
+ * Step 2️⃣: Pop(1), push to st2 = [1]
+ *           Push 2, 3 → st1 = [2, 3]
+ * Step 3️⃣: Pop(3), push to st2 = [1, 3]
+ *           (no children)
+ * Step 4️⃣: Pop(2), push to st2 = [1, 3, 2]
+ *           Push 4, 5 → st1 = [4, 5]
+ * Step 5️⃣: Pop(5), st2 = [1, 3, 2, 5]
+ * Step 6️⃣: Pop(4), st2 = [1, 3, 2, 5, 4]
+ *
+ * Now pop all from st2 → [4, 5, 2, 3, 1] ✅ Postorder Traversal
+ *
+ * ----------------------------------------------------------
+ * ⚙️ Interview Follow-ups / Discussion:
+ * ----------------------------------------------------------
+ * 🔹 Q1: Why two stacks?
+ *     → First stack simulates preorder (Root → Left → Right),
+ *       second reverses it to Postorder (Left → Right → Root).
+ *
+ * 🔹 Q2: Can we do it with one stack?
+ *     ✅ Yes — but the logic is more complex (track previous node visited).
+ *       Two stacks are simpler and clearer for interviews.
+ *
+ * 🔹 Q3: What changes for preorder/inorder?
+ *     - Preorder: process node before children.
+ *     - Inorder: use one stack and move left first.
+ *
+ * ----------------------------------------------------------
+ * ⚠️ Edge Cases:
+ * ----------------------------------------------------------
+ * 1️⃣ Empty Tree → Output: []
+ * 2️⃣ Single Node → Output: [root->val]
+ * 3️⃣ Left-Skewed Tree (e.g., 4→3→2→1)
+ *     → Traverses linearly bottom-up.
+ * 4️⃣ Right-Skewed Tree (e.g., 1→2→3→4)
+ *     → Traverses right subtree first, then root.
+ * ✅ All handled automatically by stack logic.
+ *
+ * ----------------------------------------------------------
+ * ⏱️ Time Complexity: O(N) — each node is pushed/popped twice
+ * 💾 Space Complexity: O(2N) = O(N) — for two stacks
+ * ----------------------------------------------------------
+ */
+
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> postorder;
+        if (root == NULL) return postorder; // Edge Case: Empty tree
+
+        stack<TreeNode*> st1, st2; // Two stacks used
+        st1.push(root);
+
+        while (!st1.empty()) {
+            root = st1.top();
+            st1.pop();
+            st2.push(root); // Root pushed to second stack
+
+            // Push left and right children to first stack
+            if (root->left != NULL)
+                st1.push(root->left);
+            if (root->right != NULL)
+                st1.push(root->right);
+        }
+
+        // Second stack now has Reverse Postorder (Root-Right-Left)
+        // Pop to get correct Postorder (Left-Right-Root)
+        while (!st2.empty()) {
+            postorder.push_back(st2.top()->val);
+            st2.pop();
+        }
+
+        return postorder;
+    }
+};

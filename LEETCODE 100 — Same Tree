@@ -1,0 +1,97 @@
+/***************************************************************************************************
+* 🔥 LEETCODE 100 — Same Tree (Recursive O(N) Solution)
+* -----------------------------------------------------------------------------------------------
+* 🧩 PROBLEM:
+* Given the roots of two binary trees `p` and `q`, determine if they are *identical*.
+*
+* Two binary trees are considered the same if:
+*   → They have the same structure.
+*   → Corresponding nodes have the same value.
+*
+* Example:
+* Input:  p = [1,2,3], q = [1,2,3]
+* Output: true
+*
+* Input:  p = [1,2], q = [1,null,2]
+* Output: false
+*
+* -----------------------------------------------------------------------------------------------
+* 💡 INTUITION:
+* This is a **classic recursive tree problem**.
+* - We traverse both trees **simultaneously**.
+* - At every step:
+*     → If both nodes are NULL → they match (true).
+*     → If one is NULL and other isn’t → they differ (false).
+*     → Otherwise, check:
+*         (a) Current node values are equal.
+*         (b) Left subtrees are identical.
+*         (c) Right subtrees are identical.
+*
+* If all three conditions hold true for all nodes → trees are same.
+***************************************************************************************************/
+
+// ✅ CLEAN CODE — O(N) TIME COMPLEXITY
+class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        // Base case: if either node is null
+        if (p == NULL || q == NULL)
+            return p == q;  // true only if both are NULL
+
+        // Check left and right subtrees recursively
+        bool leftSame = isSameTree(p->left, q->left);
+        bool rightSame = isSameTree(p->right, q->right);
+
+        // Both subtrees must be same and current node values must match
+        return leftSame && rightSame && (p->val == q->val);
+    }
+};
+
+/***************************************************************************************************
+* 🧠 STEP-BY-STEP ALGORITHM:
+* 1️⃣ If both `p` and `q` are NULL → return true.
+* 2️⃣ If only one of them is NULL → return false.
+* 3️⃣ If both are non-NULL:
+*       a) Compare node values → if unequal, return false.
+*       b) Recursively check left subtrees.
+*       c) Recursively check right subtrees.
+* 4️⃣ Return true only if:
+*       → Current node values match.
+*       → Left subtrees are same.
+*       → Right subtrees are same.
+***************************************************************************************************
+* 🧩 DRY RUN EXAMPLE:
+* Input: p = [1,2,3], q = [1,2,3]
+*
+*           1           1
+*          / \         / \
+*         2   3       2   3
+*
+* ➤ Compare root(1,1) → equal
+* ➤ Compare left(2,2) → equal
+* ➤ Compare right(3,3) → equal
+* ✅ All matched → return true
+***************************************************************************************************
+* ⚙️ EDGE CASES:
+* 1️⃣ Both trees empty → true
+* 2️⃣ One tree empty → false
+* 3️⃣ Different structure:
+*     p = [1,2], q = [1,null,2] → false
+* 4️⃣ Same structure, different values:
+*     p = [1,2,3], q = [1,2,4] → false
+* 5️⃣ Single node trees with same value → true
+***************************************************************************************************
+* ⏱️ TIME COMPLEXITY:  O(N)
+* Each node is visited once.
+*
+* 💾 SPACE COMPLEXITY: O(H)
+* Recursion stack space = height of tree (O(log N) for balanced, O(N) for skewed).
+***************************************************************************************************
+* 💬 INTERVIEW FOLLOW-UP QUESTIONS:
+* 1️⃣ Can you solve this **iteratively** using BFS or DFS stacks?
+*     → Yes, use a queue or stack to compare nodes level by level.
+* 2️⃣ How would you modify this to check if two trees are **mirror images**?
+*     → Compare `p->left` with `q->right` and `p->right` with `q->left`.
+* 3️⃣ What if trees contain **duplicate values**?
+*     → The structure comparison ensures correctness even with duplicates.
+***************************************************************************************************/

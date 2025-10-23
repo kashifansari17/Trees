@@ -1,0 +1,103 @@
+/***************************************************************************************************
+* 🔥 LEETCODE 124 — Binary Tree Maximum Path Sum (Optimized O(N) Solution)
+* -----------------------------------------------------------------------------------------------
+* 🧩 PROBLEM:
+* Given the root of a binary tree, return the **maximum path sum**.
+* A path is any sequence of nodes where each pair of adjacent nodes is connected by an edge.
+* The path **does not need to pass through the root**, and must contain at least one node.
+*
+* Example:
+* Input:  root = [-10,9,20,null,null,15,7]
+* Output: 42
+*
+* Path giving maximum sum: 15 → 20 → 7 = 42
+*
+* -----------------------------------------------------------------------------------------------
+* 💡 INTUITION:
+* - The **maximum path** can pass through a node in 3 ways:
+*     1️⃣ Entirely in left subtree.
+*     2️⃣ Entirely in right subtree.
+*     3️⃣ Passing through the node (left + node + right).
+* - We use **postorder traversal** to calculate:
+*     → Max sum of a path **going down** from the node (either left or right child).
+*     → Update global maximum (maxi) whenever a higher “split path” sum (left + right + node) is found.
+*
+* - If a subtree’s contribution is negative, we ignore it (treat as 0).
+***************************************************************************************************/
+
+// ✅ OPTIMIZED CODE — O(N) TIME COMPLEXITY
+class Solution {
+public:
+    int maxPathSum(TreeNode* root) {
+        int maxi = INT_MIN;                   // Global variable to track max path sum
+        maxPathDown(root, maxi);
+        return maxi;
+    }
+
+private:
+    // Helper function: returns max path sum going DOWN from current node
+    int maxPathDown(TreeNode* node, int &maxi) {
+        if (node == nullptr) return 0;        // Base case
+
+        // Compute max path on left and right — ignore negatives
+        int left = max(0, maxPathDown(node->left, maxi));    \\ campared with 0 because if we get negative sum  like max(0,-12) so it will return 0 \\ imp edge case
+        int right = max(0, maxPathDown(node->right, maxi));
+
+        // Update global max for path passing through this node
+        maxi = max(maxi, left + right + node->val);
+
+        // Return max sum of path going downward (for parent node)
+        return node->val + max(left, right);
+    }
+};
+
+/***************************************************************************************************
+* 🧠 STEP-BY-STEP ALGORITHM:
+* 1️⃣ Initialize `maxi = INT_MIN` (to store the maximum path sum).
+* 2️⃣ Perform postorder traversal using recursion:
+*     → For each node:
+*        a) Recursively compute max path sum from left and right subtrees.
+*        b) Ignore negative contributions (use `max(0, …)`).
+*        c) Update `maxi` as the maximum of current `maxi` and (left + right + node->val),
+*           representing the path passing *through* this node.
+*        d) Return the max gain from this node to its parent: `node->val + max(left, right)`.
+* 3️⃣ Finally, return `maxi` as the maximum path sum.
+***************************************************************************************************
+* 🧩 DRY RUN EXAMPLE:
+* Input: [-10,9,20,null,null,15,7]
+*
+* Tree:
+*         -10
+*         /  \
+*        9    20
+*            /  \
+*           15   7
+*
+* ➤ Node(9): left=0, right=0 → maxi = 9
+* ➤ Node(15): left=0, right=0 → maxi = 15
+* ➤ Node(7): left=0, right=0 → maxi = 15
+* ➤ Node(20): left=15, right=7 → maxi = max(15, 15+7+20)=42
+* ➤ Node(-10): left=9, right=42 → maxi = max(42, 9+42+(-10))=42
+* ✅ Final Answer = 42
+***************************************************************************************************
+* ⚙️ EDGE CASES:
+* 1️⃣ Empty Tree → return 0
+* 2️⃣ Single Node → return node->val
+* 3️⃣ All Negative Values → pick the **least negative** node
+*     Example: [-3, -2, -5] → output = -2
+* 4️⃣ Skewed Tree → works correctly (handles one-sided paths)
+***************************************************************************************************
+* ⏱️ TIME COMPLEXITY:  O(N)
+* Every node is visited once (postorder DFS).
+*
+* 💾 SPACE COMPLEXITY: O(H)
+* Recursion stack = height of the tree (O(log N) for balanced, O(N) for skewed).
+***************************************************************************************************
+* 💬 INTERVIEW FOLLOW-UP QUESTIONS:
+* 1️⃣ Why do we use `max(0, left)` and `max(0, right)`?
+*     → To ignore negative paths that reduce total sum.
+* 2️⃣ Why do we update `maxi` with `left + right + node->val` instead of just one side?
+*     → Because the max path may “split” through the current node.
+* 3️⃣ How can we modify this to return the actual path (not just sum)?
+*     → Keep track of the nodes forming the best path using a parent map.
+***************************************************************************************************/

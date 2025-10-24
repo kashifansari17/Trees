@@ -1,0 +1,103 @@
+/***************************************************************************************************
+* 🔥 LEETCODE 103 — Binary Tree Zigzag Level Order Traversal (BFS + Direction Flag)
+* -----------------------------------------------------------------------------------------------
+* 🧩 PROBLEM:
+* Given the root of a binary tree, return the zigzag level order traversal of its nodes’ values.
+* (i.e., left-to-right, then right-to-left for the next level and alternate between).
+*
+* Example:
+* Input:  root = [3,9,20,null,null,15,7]
+* Output: [[3],[20,9],[15,7]]
+*
+* -----------------------------------------------------------------------------------------------
+* 💡 INTUITION:
+* Perform a **level-order (BFS)** traversal.  
+* For each level:
+*  • Traverse all nodes in that level.  
+*  • If traversal direction is left→right, store in normal order.  
+*  • If direction is right→left, store in reverse order.  
+* Use a boolean flag `leftToRight` to track direction and flip it after each level.
+***************************************************************************************************/
+
+// ✅ CODE — Ready to submit
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> result;
+        if (root == NULL) return result;
+
+        queue<TreeNode*> nodesQueue;
+        nodesQueue.push(root);
+        bool leftToRight = true;   // Direction flag
+
+        while (!nodesQueue.empty()) {
+            int size = nodesQueue.size();
+            vector<int> row(size);
+
+            // Process one level
+            for (int i = 0; i < size; i++) {
+                TreeNode* node = nodesQueue.front();
+                nodesQueue.pop();
+
+                // Determine position to fill value based on traversal direction
+                int index = leftToRight ? i : (size - 1 - i);
+                row[index] = node->val;
+
+                // Push children into queue for next level
+                if (node->left) nodesQueue.push(node->left);
+                if (node->right) nodesQueue.push(node->right);
+            }
+
+            // After finishing a level, flip traversal direction
+            leftToRight = !leftToRight;
+            result.push_back(row);
+        }
+        return result;
+    }
+};
+
+/***************************************************************************************************
+* 🧠 STEP-BY-STEP ALGORITHM:
+* 1️⃣  If root is null → return empty list.
+* 2️⃣  Initialize a queue and push root.
+* 3️⃣  Keep a boolean flag `leftToRight = true`.
+* 4️⃣  While queue not empty:
+*      • Get current level size.
+*      • Create a temporary vector `row(size)`.
+*      • For each node in current level:
+*          → Pop front of queue.
+*          → Compute index = (leftToRight ? i : size-1-i).
+*          → Place node->val in `row[index]`.
+*          → Push node->left and node->right if they exist.
+*      • Push `row` to result.
+*      • Flip the flag (`leftToRight = !leftToRight`).
+* 5️⃣  Return result vector.
+***************************************************************************************************
+* 🧩 DRY RUN EXAMPLE:
+* Input: [3,9,20,null,null,15,7]
+*
+* Level 1: [3]                → left→right  → result = [[3]]
+* Level 2: [9, 20]            → right→left  → result = [[3],[20, 9]]
+* Level 3: [15, 7]            → left→right  → result = [[3],[20, 9],[15, 7]]
+* ✅ Output: [[3],[20,9],[15,7]]
+***************************************************************************************************
+* ⚙️ EDGE CASES:
+* 1️⃣ Empty Tree → []
+* 2️⃣ Single Node → [[val]]
+* 3️⃣ Tree with only left or right children → still alternates direction correctly.
+* 4️⃣ Unbalanced Tree → handled seamlessly since BFS processes available nodes level-wise.
+***************************************************************************************************
+* ⏱️ TIME COMPLEXITY:  O(N)
+* Each node visited once.
+*
+* 💾 SPACE COMPLEXITY: O(N)
+* For queue + output storage of all nodes.
+***************************************************************************************************
+* 💬 INTERVIEW FOLLOW-UPS:
+* 1️⃣ How to do this using **DFS** instead of BFS?  
+*     → Pass level index in recursion, reverse push-order depending on even/odd level.
+* 2️⃣ How to print result in single vector form (instead of levels)?  
+*     → Push values directly in same order as they appear during traversal.
+* 3️⃣ How to reverse every k-th level only?  
+*     → Use a counter and reverse vector when `(level % k == 0)`.
+***************************************************************************************************/

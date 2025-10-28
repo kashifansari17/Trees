@@ -1,0 +1,271 @@
+# 🌳 TREE PATTERNS — COMPLETE NOTES (For GitHub / DSA Prep)
+
+---
+
+## 🧩 1. Traversal Patterns
+
+### 🔹 Concept
+Traversal = visiting all nodes in a specific order (recursively or iteratively).  
+Types:  
+- **Preorder:** Root → Left → Right  
+- **Inorder:** Left → Root → Right  
+- **Postorder:** Left → Right → Root  
+- **Level Order (BFS):** Node by node, level by level  
+- **Zigzag:** Level order with alternate direction
+
+### 🔹 How to Identify
+Look for terms like “print”, “traverse”, “zigzag”, “level order”, “return order”.
+
+### 🔹 Key LeetCode Problems
+1. 94 - Binary Tree Inorder Traversal  
+2. 144 - Binary Tree Preorder Traversal  
+3. 145 - Binary Tree Postorder Traversal  
+4. 102 - Binary Tree Level Order Traversal  
+5. 103 - Binary Tree Zigzag Level Order Traversal  
+6. 107 - Level Order Traversal II  
+7. 199 - Right Side View  
+8. 637 - Average of Levels  
+9. 515 - Largest Value in Each Level  
+10. 429 - N-ary Tree Level Order Traversal  
+
+---
+
+## 🧠 2. Recursive DFS Patterns
+
+### 🔹 Concept
+Use recursion on left and right subtrees, then combine results (divide & conquer).  
+Used for computing tree properties (height, diameter, balance, etc.).
+
+### 🔹 How to Identify
+If problem involves **combining results from subtrees**, it’s recursive DFS.
+
+### 🔹 Key LeetCode Problems
+1. 104 - Maximum Depth of Binary Tree  
+2. 110 - Balanced Binary Tree  
+3. 543 - Diameter of Binary Tree  
+4. 101 - Symmetric Tree  
+5. 100 - Same Tree  
+6. 226 - Invert Binary Tree  
+7. 572 - Subtree of Another Tree  
+8. 617 - Merge Two Binary Trees  
+9. 404 - Sum of Left Leaves  
+10. 112 - Path Sum  
+
+---
+
+## ⚙️ 3. Iterative Traversal Patterns
+
+### 🔹 Concept
+Perform tree traversals **without recursion** using Stack (DFS) or Queue (BFS).
+
+### 🔹 How to Identify
+If recursion is restricted or you must use O(1) space → iterative traversal.
+
+### 🔹 Key LeetCode Problems
+1. 94 - Inorder Traversal (Iterative)  
+2. 144 - Preorder Traversal (Iterative)  
+3. 145 - Postorder Traversal (Iterative)  
+4. 102 - Level Order (Queue)  
+5. 103 - Zigzag Level Order  
+6. 173 - BST Iterator  
+7. 513 - Find Bottom Left Tree Value  
+8. 111 - Minimum Depth of Binary Tree  
+9. 637 - Average of Levels  
+10. 117 - Populating Next Right Pointers II  
+
+---
+
+## 🌿 4. Path-Based Patterns
+
+### 🔹 Concept
+Focuses on **paths** — root to leaf or any two nodes.  
+Common operations: path sums, collecting paths, or max path sum.
+
+### 🔹 How to Identify
+If question mentions “path”, “sum of path”, “root to leaf”, “maximum path”, etc.
+
+### 🔹 Key LeetCode Problems
+1. 112 - Path Sum  
+2. 113 - Path Sum II  
+3. 437 - Path Sum III  
+4. 124 - Binary Tree Maximum Path Sum  
+5. 257 - Binary Tree Paths  
+6. 129 - Sum Root to Leaf Numbers  
+7. 988 - Smallest String Starting from Leaf  
+8. 863 - All Nodes Distance K in Binary Tree  
+9. 1022 - Sum of Root to Leaf Binary Numbers  
+10. 687 - Longest Univalue Path  
+
+---
+
+## 👁️ 5. Boundary & View Patterns
+
+### 🔹 Concept
+Deals with visible or boundary nodes from different directions (top, bottom, left, right).
+
+### 🔹 How to Identify
+If problem mentions “view”, “visible”, “top/bottom/side view”, or “boundary”.
+
+### 🔹 Key LeetCode Problems
+1. 199 - Right Side View  
+2. 515 - Largest Value in Each Tree Row  
+3. 987 - Vertical Order Traversal  
+4. 314 - Binary Tree Vertical Order Traversal  
+5. 103 - Zigzag Level Order  
+6. 116 - Populating Next Right Pointers  
+7. 117 - Populating Next Right Pointers II  
+8. 863 - Nodes at Distance K  
+9. Top View (GFG)  
+10. Bottom View (GFG)  
+
+---
+
+## 📏 6. Height / Depth / Diameter Patterns
+
+### 🔹 Concept
+Focuses on **height**, **depth**, **diameter**, or **balanced** properties of trees.
+
+### 🔹 How to Identify
+Look for words like “height”, “depth”, “diameter”, “balanced”.
+
+### 🔹 Key LeetCode Problems
+1. 104 - Max Depth  
+2. 111 - Min Depth  
+3. 543 - Diameter of Binary Tree  
+4. 110 - Balanced Binary Tree  
+5. 559 - Max Depth of N-ary Tree  
+6. 124 - Max Path Sum  
+7. 257 - Binary Tree Paths  
+8. 662 - Maximum Width of Binary Tree  
+9. 513 - Bottom Left Value  
+10. 1609 - Even Odd Tree  
+
+---
+
+## 🌲 7. Binary Search Tree (BST) Patterns
+
+### 🔹 Concept
+Uses BST property → left < root < right.  
+Inorder gives sorted order.
+
+### 🔹 How to Identify
+If question mentions “BST”, “search”, “kth smallest/largest”, “validate BST”.
+
+### 🔹 Key LeetCode Problems
+1. 700 - Search in BST  
+2. 701 - Insert into BST  
+3. 450 - Delete Node in BST  
+4. 98 - Validate BST  
+5. 235 - LCA of BST  
+6. 230 - Kth Smallest in BST  
+7. 530 - Minimum Absolute Difference  
+8. 783 - Minimum Distance in BST  
+9. 99 - Recover BST  
+10. 108 - Convert Sorted Array to BST  
+
+---
+
+## 🏗️ 8. Construction Patterns
+
+### 🔹 Concept
+Reconstruct a tree from given traversal arrays (Preorder, Inorder, Postorder).
+
+### 🔹 How to Identify
+Look for words like “build”, “construct”, “from preorder and inorder”.
+
+### 🔹 Key LeetCode Problems
+1. 105 - Construct Tree from Preorder & Inorder  
+2. 106 - Construct Tree from Inorder & Postorder  
+3. 889 - Construct Tree from Preorder & Postorder  
+4. 654 - Maximum Binary Tree  
+5. 1008 - Construct BST from Preorder  
+6. 449 - Serialize and Deserialize BST  
+7. 297 - Serialize and Deserialize Binary Tree  
+8. 116 - Connect Next Right Pointers  
+9. 117 - Connect Next Right Pointers II  
+10. 99 - Recover BST  
+
+---
+
+## 🧮 9. Ancestor / Distance Patterns
+
+### 🔹 Concept
+Find relations between nodes — lowest common ancestor, kth ancestor, distance, etc.
+
+### 🔹 How to Identify
+Look for words “ancestor”, “distance”, “LCA”, “nodes K distance apart”.
+
+### 🔹 Key LeetCode Problems
+1. 236 - LCA of Binary Tree  
+2. 235 - LCA of BST  
+3. 1644 - LCA of Binary Tree II  
+4. 865 - Smallest Subtree with All Deepest Nodes  
+5. 863 - Nodes Distance K  
+6. 1123 - LCA of Deepest Leaves  
+7. 2096 - Step Directions Between Two Nodes  
+8. 1245 - Tree Diameter  
+9. 2246 - Longest Path with Different Adjacent Characters  
+10. 1609 - Even Odd Tree  
+
+---
+
+## ⚡ 10. Advanced / Miscellaneous Patterns
+
+### 🔹 Concept
+Tree transformations and structural modifications.
+
+### 🔹 How to Identify
+If question says “flatten”, “convert”, “serialize”, “delete nodes”, “convert to DLL”.
+
+### 🔹 Key LeetCode Problems
+1. 114 - Flatten Binary Tree to Linked List  
+2. 156 - Binary Tree Upside Down  
+3. 297 - Serialize and Deserialize Binary Tree  
+4. 173 - BST Iterator  
+5. 426 - Convert BST to Sorted DLL  
+6. 1110 - Delete Nodes and Return Forest  
+7. 958 - Check Completeness of Binary Tree  
+8. 662 - Width of Binary Tree  
+9. 987 - Vertical Order Traversal  
+10. 742 - Closest Leaf in a Binary Tree  
+
+---
+
+## 🧭 Learning Order Roadmap
+
+1️⃣ Traversals  
+2️⃣ Recursive DFS  
+3️⃣ Iterative Traversals  
+4️⃣ Path-based  
+5️⃣ Height / Diameter  
+6️⃣ Boundary & Views  
+7️⃣ BST  
+8️⃣ Construction  
+9️⃣ Ancestors & Distance  
+🔟 Advanced / Transformations
+
+---
+
+## 🪄 Tip to Identify Patterns Quickly
+
+| Pattern | Common Keywords | Intuition |
+|----------|----------------|------------|
+| Traversal | print, order, zigzag, level | Visit all nodes |
+| DFS Recursive | height, sum, balanced, diameter | Combine subtree results |
+| Iterative | iterative, stack, queue | Replace recursion |
+| Path-Based | path, sum, root to leaf | Track cumulative path |
+| View / Boundary | top, bottom, right, visible | Level-based visibility |
+| Height/Diameter | height, depth, balanced | Compute subtree metrics |
+| BST | BST, search, kth smallest | Use sorted property |
+| Construction | build, preorder, inorder | Split arrays recursively |
+| Ancestor / Distance | LCA, ancestor, distance | Relationship between nodes |
+| Advanced | flatten, serialize, convert | Transform tree structure |
+
+---
+
+⭐ **Pro Tip:**  
+> 90% of Tree problems are combinations of  
+> ➤ DFS + Height logic  
+> ➤ BFS + Level info  
+> ➤ Path tracking + Backtracking
+
